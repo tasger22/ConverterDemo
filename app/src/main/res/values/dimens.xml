@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="defaultTextSize">25sp</dimen>
+    <dimen name="currencyTextSize">30sp</dimen>
+</resources>

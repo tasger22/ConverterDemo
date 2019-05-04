@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Átváltó</string>
+    <string name="action_favorites">Kedvencek</string>
+    <string name="length">Hossz</string>
+    <string name="weight">Súly</string>
+    <string name="area">Terület</string>
+    <string name="currency">Valuta</string>
+    <string name="kilogramText">kilogramm</string>
+    <string name="gramText">gramm</string>
+    <string name="meterText">méter</string>
+    <string name="footText">láb</string>
+    <string name="inchText">col</string>
+    <string name="yardText">yard</string>
+    <string name="milesText">mérföld</string>
+    <string name="kilometersText">kilométer</string>
+    <string name="centnerText">mázsa</string>
+    <string name="stoneText">kő</string>
+    <string name="poundText">font</string>
+    <string name="ounceText">uncia</string>
+    <string name="sqMeterText">négyzetméter</string>
+    <string name="sqKmeterText">négyzetkilométer</string>
+    <string name="sqFootText">négyzetláb</string>
+    <string name="acreText">angol hold</string>
+    <string name="hectarText">hektár</string>
+    <string name="cancel">Mégsem</string>
+    <string name="favAdded">hozzáadva a kedvencekhez</string>
+    <string name="addingToFavs">Mértékegység kedvencekhez adása</string>
+    <string name="enter">Belép</string>
+    <string name="passwordText">Kérem írja be jelszavát!</string>
+    <string name="password">Jelszó</string>
+    <string name="code_accepted">A beírt kód helyes</string>
+    <string name="code_rejected">A beírt kód helytelen</string>
+</resources>
