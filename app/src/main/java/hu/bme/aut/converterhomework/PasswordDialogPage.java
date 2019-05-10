@@ -18,7 +18,7 @@ import hu.bme.aut.converterhomework.fragments.ChangePasswordDialogFragment;
 import hu.bme.iit.dynamiccodedialog.CodeDialogBase;
 import hu.bme.iit.dynamiccodedialog.CryptographyImplementation;
 
-public class PasswordDialogPage extends CodeDialogBase {
+public class PasswordDialogPage extends CodeDialogBase <byte[], String> {
 
     private CryptographyImplementation crypter;
     private Activity ownerActivity;
@@ -42,7 +42,7 @@ public class PasswordDialogPage extends CodeDialogBase {
             TextView child = (TextView) inputLayout.getChildAt(i);
             child.setText(String.valueOf((i+1)%10));
         }
-        setCodeButtonList(inputLayout);
+        setUpCodeInputInterface(inputLayout);
 
         EditText passwordLine = findViewById(R.id.passwordLine);
         TextView enterButton = findViewById(R.id.enterButton);
@@ -66,12 +66,12 @@ public class PasswordDialogPage extends CodeDialogBase {
                 passwordLine.setText(newPassLineText);
             }
         });
-        randomizeButtons();
+        randomizeInputViews();
     }
 
     @Override
     protected void authenticationFailed() {
-        ownerActivity.finishAffinity();
+
     }
 
     @Override
@@ -82,13 +82,13 @@ public class PasswordDialogPage extends CodeDialogBase {
     }
 
     @Override
-    protected void processCodeButtonPress(View view) {
+    protected void processCodeInputViewPress(View view) {
         TextView numberButton = (TextView) view;
         EditText passwordLine = findViewById(R.id.passwordLine);
 
         passwordLine.append(numberButton.getText().toString());
 
-        randomizeButtons();
+        randomizeInputViews();
     }
 
     @Override
