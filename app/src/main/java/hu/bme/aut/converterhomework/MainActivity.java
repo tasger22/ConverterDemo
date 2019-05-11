@@ -13,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import hu.bme.aut.converterhomework.fragments.AreaFragment;
 import hu.bme.aut.converterhomework.fragments.ChangePasswordDialogFragment;
 import hu.bme.aut.converterhomework.fragments.CurrencyFragment;
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements FavoritesDialogFr
         idNumArea = sp.getInt(getString(R.string.idNumArea),0);
         idNumCurrency = sp.getInt(getString(R.string.idNumCurrency),0);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
             String currentTabTitle = getPrefTabName(cpa.getPageTitle(tl.getSelectedTabPosition()).toString(),tabTitles);
             String currentConvertText = "";
@@ -108,18 +110,10 @@ public class MainActivity extends AppCompatActivity implements FavoritesDialogFr
                 spe.apply();
             }
         });
-        fab.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Toast.makeText(getBaseContext(), getString(R.string.addingToFavs),Toast.LENGTH_SHORT).show();
-                return true;
-            }
+        fab.setOnLongClickListener(v -> {
+            Toast.makeText(getBaseContext(), getString(R.string.addingToFavs),Toast.LENGTH_SHORT).show();
+            return true;
         });
-
-        if (sp.contains(ChangePasswordDialogFragment.KEY_PREF_PASSWORD)){
-            PasswordDialogPage passwordDialogPage = new PasswordDialogPage(this, R.style.LayoutTheme, new CryptographyImplementation(), this);
-            passwordDialogPage.show();
-        }
     }
 
     private String getPrefTabName(String s, String[] tabTitles) { //INFO: returns string for the SharedPreferences
@@ -162,24 +156,40 @@ public class MainActivity extends AppCompatActivity implements FavoritesDialogFr
             new FavoritesDialogFragment().show(getSupportFragmentManager(),FavoritesDialogFragment.TAG);
             return true;
         }
-        else if (id == R.id.action_code){
+        else if (id == R.id.action_code_security){
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor spEdit = sp.edit();
-            item.setChecked(sp.getBoolean(KEY_PREF_PASSWORD_CHECKED,false));
             if (!item.isChecked()){
-                new ChangePasswordDialogFragment().show(getSupportFragmentManager(),ChangePasswordDialogFragment.TAG);
                 item.setChecked(true);
             }
             else {
-                spEdit.remove(ChangePasswordDialogFragment.KEY_PREF_PASSWORD);
                 item.setChecked(false);
             }
             spEdit.putBoolean(KEY_PREF_PASSWORD_CHECKED,item.isChecked());
             spEdit.apply();
-            return true;
+        }
+        else if (id == R.id.action_code_input){
+            new ChangePasswordDialogFragment().show(getSupportFragmentManager(),ChangePasswordDialogFragment.TAG);
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isPasswordProtectionOn = sp.getBoolean(KEY_PREF_PASSWORD_CHECKED,false);
+
+        for (int i = 0; i < menu.size(); i++) {
+            MenuItem item = menu.getItem(i);
+            if (item.getItemId() == R.id.action_code_security){
+                item.setChecked(isPasswordProtectionOn);
+            }
+            else if (item.getItemId() == R.id.action_code_input){
+                item.setVisible(isPasswordProtectionOn);
+            }
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -204,6 +214,15 @@ public class MainActivity extends AppCompatActivity implements FavoritesDialogFr
             if(!CurrencyFragment.getNoConnection())
                 CurrencyFragment.setFavoriteConvert(convertText);
         }
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        if (sp.getBoolean(KEY_PREF_PASSWORD_CHECKED, false)){
+            PasswordDialogPage passwordDialogPage = new PasswordDialogPage(this, R.style.LayoutTheme, new CryptographyImplementation(), this);
+            passwordDialogPage.show();
+        }
     }
 }

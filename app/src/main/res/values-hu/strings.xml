@@ -30,4 +30,7 @@
     <string name="password">Jelszó</string>
     <string name="code_accepted">A beírt kód helyes</string>
     <string name="code_rejected">A beírt kód helytelen</string>
+    <string name="password_protection">Jelszó védelem</string>
+    <string name="code_set_correct">Jelszó sikeresen beállítva!</string>
+    <string name="code_set_incorrect">A jelszó 4–8 szám hosszú kell legyen!</string>
 </resources>

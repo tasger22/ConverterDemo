@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import hu.bme.aut.converterhomework.R;
 import hu.bme.iit.dynamiccodedialog.CryptographyImplementation;
@@ -50,7 +51,11 @@ public class ChangePasswordDialogFragment extends AppCompatDialogFragment {
                     String encryptedStr = encrypter.byteArrayToHexString(stringByteArray);
                     sharedPreferencesEditor.putString(KEY_PREF_PASSWORD,encryptedStr);
                     sharedPreferencesEditor.apply();
+                    Toast.makeText(getContext(), getContext().getString(R.string.code_set_correct), Toast.LENGTH_SHORT).show();
                     dismiss();
+                }
+                else{
+                    Toast.makeText(getContext(), getContext().getString(R.string.code_set_incorrect), Toast.LENGTH_SHORT).show();
                 }
             });
 

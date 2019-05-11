@@ -28,7 +28,7 @@ public class PasswordDialogPage extends CodeDialogBase <byte[], String> {
         crypter = cryptographyImplementation;
         this.ownerActivity = ownerActivity;
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        String storedPassHexa = sp.getString(ChangePasswordDialogFragment.KEY_PREF_PASSWORD,"");
+        String storedPassHexa = sp.getString(ChangePasswordDialogFragment.KEY_PREF_PASSWORD,crypter.byteArrayToHexString(crypter.encrypt("0000")));
         setCode(storedPassHexa);
     }
 

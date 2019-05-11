@@ -60,4 +60,7 @@
     <string name="password">Password</string>
     <string name="code_accepted">Code input was right</string>
     <string name="code_rejected">Code input was incorrect</string>
+    <string name="password_protection">Password protection</string>
+    <string name="code_set_correct">Code set successfully!</string>
+    <string name="code_set_incorrect">Code must be 4-8 numbers long!</string>
 </resources>
