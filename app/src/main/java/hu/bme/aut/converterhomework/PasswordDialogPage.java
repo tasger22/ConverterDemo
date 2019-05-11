@@ -48,7 +48,7 @@ public class PasswordDialogPage extends CodeDialogBase <byte[], String> {
         TextView enterButton = findViewById(R.id.enterButton);
         enterButton.setOnClickListener(view -> {
             String codeInput = passwordLine.getText().toString();
-            if (!"".equals(codeInput) && compareCodeToInput(codeInput)) {
+            if (!"".equals(codeInput) && isInputCodeCorrect(codeInput)) {
                 Toast.makeText(getContext(), R.string.code_accepted,Toast.LENGTH_SHORT).show();
                 dismiss();
             }
@@ -70,15 +70,10 @@ public class PasswordDialogPage extends CodeDialogBase <byte[], String> {
     }
 
     @Override
-    protected void authenticationFailed() {
-
-    }
-
-    @Override
-    protected boolean compareCodeToInput(String input) {
+    protected boolean isInputCodeCorrect(String input) {
         byte[] inputEncryptedBytes = crypter.encrypt(input);
         String hexaInputString = crypter.byteArrayToHexString(inputEncryptedBytes);
-        return super.compareCodeToInput(hexaInputString);
+        return super.isInputCodeCorrect(hexaInputString);
     }
 
     @Override
